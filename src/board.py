@@ -1,8 +1,8 @@
 from PyQt5.QtWidgets import QFrame
 from PyQt5.QtCore import Qt, QBasicTimer, pyqtSignal
-from PyQt5.QtGui import QPainter, QColor
+from PyQt5.QtGui import QPainter, QColor, QPen
 
-from shape import Shape, Tetrominoe
+from src.shape import Shape, Tetrominoe
 
 
 class Board(QFrame):
@@ -32,6 +32,16 @@ class Board(QFrame):
         self.isStarted = False
         self.isPaused = False
         self.clearBoard()
+
+    def drawVerticalLines(self, painter):
+        pen = QPen(Qt.black, 2, Qt.SolidLine)
+        painter.setPen(pen)
+
+        pen.setStyle(Qt.DotLine)
+        painter.setPen(pen)
+        for x in range(Board.BoardWidth):
+            x_coord = x*self.squareWidth()
+            painter.drawLine(x_coord, 0, x_coord, Board.BoardHeight*self.squareHeight())
 
     def shapeAt(self, x, y):
         '''determines shape at the board position'''
@@ -92,6 +102,7 @@ class Board(QFrame):
 
         painter = QPainter(self)
         rect = self.contentsRect()
+        self.drawVerticalLines(painter)
 
         boardTop = rect.bottom() - Board.BoardHeight * self.squareHeight()
 
