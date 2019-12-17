@@ -34,14 +34,10 @@ class Board(QFrame):
         self.clearBoard()
 
     def drawVerticalLines(self, painter):
-        pen = QPen(Qt.black, 2, Qt.SolidLine)
+        pen = QPen(Qt.black, 2, Qt.DotLine)
         painter.setPen(pen)
 
-        pen.setStyle(Qt.DotLine)
-        painter.setPen(pen)
-        for x in range(Board.BoardWidth):
-            x_coord = x*self.squareWidth()
-            painter.drawLine(x_coord, 0, x_coord, Board.BoardHeight*self.squareHeight())
+        # TODO the drawing things
 
     def shapeAt(self, x, y):
         '''determines shape at the board position'''
